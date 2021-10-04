@@ -7,6 +7,7 @@ Imports System.Math
 Imports System.Threading
 Imports DotNetScanMemory_SmoLL
 Imports FacilCoding
+Imports System.IO
 Public Class Form1
 
     'Dim FC As New FacilCoding
@@ -64,8 +65,34 @@ Public Class Form1
         Return destination
     End Function
 
+    Private Sub PushIn()
+        Try
+            If File.Exists("./Settings/item/book_compose.txt") Then
+
+            Else
+                Directory.CreateDirectory("./Settings/item")
+                Dim path As String = "./Settings/item/book_compose.txt"
+                Dim writer As New StreamWriter(path, True)
+                Dim str2 As String = My.Resources.book_compose
+                writer.WriteLine(str2)
+                writer.Close()
+
+            End If
+        Catch exception As Exception
+        End Try
+    End Sub
+
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        If File.Exists("Data\Update_c.pak") Then
+            PushIn()
+        Else
+            MsgBox("Please Copy to Forder JX2", MsgBoxStyle.ApplicationModal, Nothing)
+            Me.Close()
+        End If
+
+
+
         SlcGroupBox2.Hide()
         SlCbtn2.Hide()
 
@@ -86,13 +113,14 @@ Public Class Form1
 
 
     Private Sub SlCbtn1_Click(sender As Object, e As EventArgs) Handles SlCbtn1.Click
+
+
         AppActivate(PlayerName)
         Clear.Start()
         'MsgBox(SlcComboBox1.SelectedItem)
     End Sub
 
     Private Sub Clear_Tick(sender As Object, e As EventArgs) Handles Clear.Tick
-        WriteByte(TargetProcess, &H7CD3018, 0)
         SendKeys.Send("{ENTER}")
         SendKeys.Send("/Open('bookcompose')")
         SendKeys.Send("{ENTER}")
