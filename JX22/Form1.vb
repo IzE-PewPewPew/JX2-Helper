@@ -33,8 +33,14 @@ Public Class Form1
     Dim TargetProcess As String = "SO2Game"
     ' Const PROCESS_ALL_ACCESS = &H1F0FFF
     Dim procID As Integer
+    Dim ProcTitle As String
+    Dim addSuccess As Boolean
     Private Function CloseHandle(ByVal hObject As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
     End Function
+
+    Private Sub PopUp()
+        AppActivate(PlayerName)
+    End Sub
 
     '    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
     '        Inject.Start()
@@ -78,6 +84,7 @@ Public Class Form1
 
     End Sub
 
+
     Private Sub SlCbtn1_Click(sender As Object, e As EventArgs) Handles SlCbtn1.Click
         AppActivate(PlayerName)
         Clear.Start()
@@ -86,9 +93,6 @@ Public Class Form1
 
     Private Sub Clear_Tick(sender As Object, e As EventArgs) Handles Clear.Tick
         WriteByte(TargetProcess, &H7CD3018, 0)
-        SendKeys.Send("{ENTER}")
-        SendKeys.Send("{ENTER}")
-
         SendKeys.Send("{ENTER}")
         SendKeys.Send("/Open('bookcompose')")
         SendKeys.Send("{ENTER}")
@@ -106,7 +110,8 @@ Public Class Form1
             Try
                 PlayerName = PlayerName & Conversions.ToString(Convert.ToChar(ReadMemoryString(procID, &H76029C + num)))
             Catch exception1 As Exception
-                SlcComboBox1.Text = ""
+
+                SlcComboBox1.Text = "Unknown Name"
             Finally
                 Label3.Text = MyBase.Name
             End Try
@@ -121,7 +126,7 @@ Public Class Form1
             Try
                 PlayerSect = PlayerSect & Conversions.ToString(Convert.ToChar(ReadMemoryString(procID, (&H18FA10 + num))))
             Catch exception1 As Exception
-                SlcComboBox1.Text = ""
+                SlcComboBox1.Text = "Unknown Sect"
             Finally
                 Label6.Text = MyBase.Name
             End Try
@@ -137,13 +142,14 @@ Public Class Form1
             Try
                 PlayerLevel = PlayerLevel & Conversions.ToString(ReadMemoryString(procID, &H18FA38 + num))
             Catch exception1 As Exception
-                SlcComboBox1.Text = ""
+                SlcComboBox1.Text = "Unknown level"
             Finally
                 Label4.Text = MyBase.Name
             End Try
             num += 1
         Loop While (num <= 0)
         Label4.Text = ": " + PlayerLevel
+
     End Sub
     Private Sub getExp()
         Dim offset As Integer() = New Integer() {&H20D8}
@@ -151,6 +157,35 @@ Public Class Form1
         SlcProgrssBar1.Value = CInt(Math.Round(a)) 'Processbar to load EXP %
         Label10.Text = SlcProgrssBar1.Value & "%"
         Timer1.Stop()
+    End Sub
+
+    Private Sub writeToTP(ByVal tp As Integer)
+        Try
+            Dim offset As Integer() = New Integer() {&H1F2C}
+            WritePointerIntegerCustom(procID, &H958370, (0 - tp), offset)
+            Me.addSuccess = True
+        Catch exception As Exception
+            MsgBox("Error occured during adding T-Point!", MsgBoxStyle.Critical, Nothing)
+            Me.addSuccess = False
+        End Try
+    End Sub
+
+    Private Sub writeToBaby4()
+        Try
+            Dim offset As Integer() = New Integer() {&H1F30}
+            WritePointerIntegerCustom(procID, &H958370, -1, offset)
+        Catch exception As Exception
+            MsgBox("Error occured during adding Baby * 4", MsgBoxStyle.Critical, Nothing)
+        End Try
+    End Sub
+
+    Private Sub writeToBaby8()
+        Try
+            Dim offset As Integer() = New Integer() {&H1F34}
+            WritePointerIntegerCustom(procID, &H958370, -1, offset)
+        Catch exception As Exception
+            MsgBox("Error occured during adding Baby * 8", MsgBoxStyle.Critical, Nothing)
+        End Try
     End Sub
 
     Private Sub SlCbtn2_Click(sender As Object, e As EventArgs) Handles SlCbtn2.Click
@@ -162,10 +197,12 @@ Public Class Form1
         procID = CInt(Convert.ToUInt64(Me.SlcComboBox1.Text.Replace("SO2Game", "")))
         Label8.Text = ": " + procID.ToString
         PlayerChar()
+        Timer2.Start()
         getSect()
         GetLvl()
         Timer1.Start()
-        Timer2.Start()
+
+
         'Label8.Text = processHandle.ToString
 
         'LastKnownPID = CInt(Convert.ToUInt64(SlcComboBox1.Text.Replace("SO2Game", "")))
@@ -187,6 +224,8 @@ Public Class Form1
 
         For Each processs In Process.GetProcessesByName("SO2Game")
             SlcComboBox1.Items.Add((processs.ProcessName & processs.Id.ToString))
+            ProcTitle = processs.MainWindowTitle
+
         Next
         'CType(sender, SLCComboBox).Items.Clear()
         'For Each p As Process In Process.GetProcessesByName(TargetProcess)
@@ -214,16 +253,10 @@ Public Class Form1
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
         Application.DoEvents()
         Dim procGet = Process.GetProcessById(procID)
-        'Dim processes As Process() = Process.GetProcesses
-        'Dim num As Integer = procGet.Length - 1
-        'Dim i As Integer = 0
-        'Do While (i <= num)
         If Strings.LCase(procGet.ProcessName) = Strings.LCase("SO2Game") Then
             SetWindowText(procGet.MainWindowHandle, PlayerName)
             Timer2.Stop()
         End If
-        'i += 1
-        'Loop
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -235,6 +268,31 @@ Public Class Form1
     End Sub
 
     Private Sub SlCbtn4_Click(sender As Object, e As EventArgs) Handles SlCbtn4.Click
+        MyBase.WindowState = FormWindowState.Minimized
 
+    End Sub
+
+    Private Sub SlCbtn5_Click(sender As Object, e As EventArgs) Handles SlCbtn5.Click
+        Dim text As String = Me.tpointNum.Text
+        If Versioned.IsNumeric([text]) Then
+            Me.writeToTP(CInt(Convert.ToInt64([text])))
+            If Me.baby8.Checked Then
+                Me.writeToBaby8()
+            End If
+            If Me.baby4.Checked Then
+                Me.writeToBaby4()
+            End If
+            If Me.addSuccess Then
+                Interaction.MsgBox("Applied Selection as Successful. Press 'Start' in book compose menu to recieve!", MsgBoxStyle.Information, Nothing)
+            Else
+                Interaction.MsgBox("Can't apply cheat to the game", MsgBoxStyle.Critical, Nothing)
+            End If
+        Else
+            Interaction.MsgBox("T-Point number is invalid!", MsgBoxStyle.ApplicationModal, Nothing)
+        End If
+    End Sub
+
+    Private Sub SlCbtn6_Click(sender As Object, e As EventArgs) Handles SlCbtn6.Click
+        PopUp()
     End Sub
 End Class

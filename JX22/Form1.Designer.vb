@@ -29,6 +29,13 @@ Partial Class Form1
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SlcTheme1 = New JX22.SLCTheme()
+        Me.SlcGroupBox3 = New JX22.SLCGroupBox()
+        Me.tpointNum = New JX22.SLCTextBox()
+        Me.baby8 = New JX22.SLCCheckbox()
+        Me.SlCbtn5 = New JX22.SLCbtn()
+        Me.baby4 = New JX22.SLCCheckbox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.SlCbtn1 = New JX22.SLCbtn()
         Me.SlCbtn4 = New JX22.SLCbtn()
         Me.SlCbtn3 = New JX22.SLCbtn()
         Me.SlcGroupBox1 = New JX22.SLCGroupBox()
@@ -52,8 +59,9 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.SlcComboBox1 = New JX22.SLCComboBox()
-        Me.SlCbtn1 = New JX22.SLCbtn()
+        Me.SlCbtn6 = New JX22.SLCbtn()
         Me.SlcTheme1.SuspendLayout()
+        Me.SlcGroupBox3.SuspendLayout()
         Me.SlcGroupBox1.SuspendLayout()
         Me.SlcGroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -89,11 +97,12 @@ Partial Class Form1
         '
         Me.SlcTheme1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(72, Byte), Integer))
         Me.SlcTheme1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.SlcTheme1.Controls.Add(Me.SlCbtn6)
+        Me.SlcTheme1.Controls.Add(Me.SlcGroupBox3)
         Me.SlcTheme1.Controls.Add(Me.SlCbtn4)
         Me.SlcTheme1.Controls.Add(Me.SlCbtn3)
         Me.SlcTheme1.Controls.Add(Me.SlcGroupBox1)
         Me.SlcTheme1.Controls.Add(Me.SlcComboBox1)
-        Me.SlcTheme1.Controls.Add(Me.SlCbtn1)
         Me.SlcTheme1.Customization = "JRIV/zYjIP82IyD/JRIV/w=="
         Me.SlcTheme1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SlcTheme1.Font = New System.Drawing.Font("Verdana", 8.0!)
@@ -103,13 +112,100 @@ Partial Class Form1
         Me.SlcTheme1.Name = "SlcTheme1"
         Me.SlcTheme1.NoRounding = False
         Me.SlcTheme1.Sizable = False
-        Me.SlcTheme1.Size = New System.Drawing.Size(252, 271)
+        Me.SlcTheme1.Size = New System.Drawing.Size(250, 351)
         Me.SlcTheme1.SmartBounds = True
         Me.SlcTheme1.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation
         Me.SlcTheme1.TabIndex = 2
         Me.SlcTheme1.Text = "JX2 | Helper"
         Me.SlcTheme1.TransparencyKey = System.Drawing.Color.Fuchsia
         Me.SlcTheme1.Transparent = False
+        '
+        'SlcGroupBox3
+        '
+        Me.SlcGroupBox3.Controls.Add(Me.tpointNum)
+        Me.SlcGroupBox3.Controls.Add(Me.baby8)
+        Me.SlcGroupBox3.Controls.Add(Me.SlCbtn5)
+        Me.SlcGroupBox3.Controls.Add(Me.baby4)
+        Me.SlcGroupBox3.Controls.Add(Me.Label13)
+        Me.SlcGroupBox3.Controls.Add(Me.SlCbtn1)
+        Me.SlcGroupBox3.DrawSeperator = False
+        Me.SlcGroupBox3.Location = New System.Drawing.Point(12, 215)
+        Me.SlcGroupBox3.Name = "SlcGroupBox3"
+        Me.SlcGroupBox3.Size = New System.Drawing.Size(227, 113)
+        Me.SlcGroupBox3.SubTitle = ""
+        Me.SlcGroupBox3.TabIndex = 18
+        Me.SlcGroupBox3.Text = "SlcGroupBox3"
+        Me.SlcGroupBox3.Title = "T-Point || Baby"
+        '
+        'tpointNum
+        '
+        Me.tpointNum.Location = New System.Drawing.Point(81, 49)
+        Me.tpointNum.MaxLength = 32767
+        Me.tpointNum.Multiline = False
+        Me.tpointNum.Name = "tpointNum"
+        Me.tpointNum.ReadOnly = False
+        Me.tpointNum.Size = New System.Drawing.Size(130, 24)
+        Me.tpointNum.TabIndex = 15
+        Me.tpointNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
+        Me.tpointNum.UseSystemPasswordChar = False
+        '
+        'baby8
+        '
+        Me.baby8.Checked = False
+        Me.baby8.ForeColor = System.Drawing.Color.Transparent
+        Me.baby8.Location = New System.Drawing.Point(117, 28)
+        Me.baby8.Name = "baby8"
+        Me.baby8.Size = New System.Drawing.Size(82, 23)
+        Me.baby8.TabIndex = 17
+        Me.baby8.Text = "Baby *8"
+        '
+        'SlCbtn5
+        '
+        Me.SlCbtn5.Colors = New JX22.Bloom(-1) {}
+        Me.SlCbtn5.Customization = ""
+        Me.SlCbtn5.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.SlCbtn5.Image = Nothing
+        Me.SlCbtn5.Location = New System.Drawing.Point(117, 78)
+        Me.SlCbtn5.Name = "SlCbtn5"
+        Me.SlCbtn5.NoRounding = False
+        Me.SlCbtn5.Size = New System.Drawing.Size(94, 25)
+        Me.SlCbtn5.TabIndex = 18
+        Me.SlCbtn5.Text = "      Apply"
+        Me.SlCbtn5.Transparent = False
+        '
+        'baby4
+        '
+        Me.baby4.Checked = False
+        Me.baby4.ForeColor = System.Drawing.Color.Transparent
+        Me.baby4.Location = New System.Drawing.Point(15, 28)
+        Me.baby4.Name = "baby4"
+        Me.baby4.Size = New System.Drawing.Size(79, 23)
+        Me.baby4.TabIndex = 16
+        Me.baby4.Text = "Baby *4"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.Location = New System.Drawing.Point(19, 54)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(61, 13)
+        Me.Label13.TabIndex = 13
+        Me.Label13.Text = "T-Points :"
+        '
+        'SlCbtn1
+        '
+        Me.SlCbtn1.Colors = New JX22.Bloom(-1) {}
+        Me.SlCbtn1.Customization = ""
+        Me.SlCbtn1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.SlCbtn1.Image = Nothing
+        Me.SlCbtn1.Location = New System.Drawing.Point(15, 78)
+        Me.SlCbtn1.Name = "SlCbtn1"
+        Me.SlCbtn1.NoRounding = False
+        Me.SlCbtn1.Size = New System.Drawing.Size(94, 25)
+        Me.SlCbtn1.TabIndex = 4
+        Me.SlCbtn1.Text = "BookCompose"
+        Me.SlCbtn1.Transparent = False
         '
         'SlCbtn4
         '
@@ -192,7 +288,7 @@ Partial Class Form1
         Me.SlcGroupBox2.Controls.Add(Me.SlcCheckbox3)
         Me.SlcGroupBox2.Controls.Add(Me.SlcCheckbox2)
         Me.SlcGroupBox2.DrawSeperator = False
-        Me.SlcGroupBox2.Location = New System.Drawing.Point(196, 42)
+        Me.SlcGroupBox2.Location = New System.Drawing.Point(152, 26)
         Me.SlcGroupBox2.Name = "SlcGroupBox2"
         Me.SlcGroupBox2.Size = New System.Drawing.Size(258, 125)
         Me.SlcGroupBox2.SubTitle = ""
@@ -368,36 +464,39 @@ Partial Class Form1
         Me.SlcComboBox1.Items.AddRange(New Object() {"Select process..."})
         Me.SlcComboBox1.Location = New System.Drawing.Point(14, 60)
         Me.SlcComboBox1.Name = "SlcComboBox1"
-        Me.SlcComboBox1.Size = New System.Drawing.Size(225, 21)
+        Me.SlcComboBox1.Size = New System.Drawing.Size(159, 21)
         Me.SlcComboBox1.TabIndex = 2
         '
-        'SlCbtn1
+        'SlCbtn6
         '
-        Me.SlCbtn1.Colors = New JX22.Bloom(-1) {}
-        Me.SlCbtn1.Customization = ""
-        Me.SlCbtn1.Font = New System.Drawing.Font("Verdana", 8.0!)
-        Me.SlCbtn1.Image = Nothing
-        Me.SlCbtn1.Location = New System.Drawing.Point(14, 215)
-        Me.SlCbtn1.Name = "SlCbtn1"
-        Me.SlCbtn1.NoRounding = False
-        Me.SlCbtn1.Size = New System.Drawing.Size(94, 23)
-        Me.SlCbtn1.TabIndex = 4
-        Me.SlCbtn1.Text = "BookCompose"
-        Me.SlCbtn1.Transparent = False
+        Me.SlCbtn6.Colors = New JX22.Bloom(-1) {}
+        Me.SlCbtn6.Customization = ""
+        Me.SlCbtn6.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.SlCbtn6.Image = Nothing
+        Me.SlCbtn6.Location = New System.Drawing.Point(178, 60)
+        Me.SlCbtn6.Name = "SlCbtn6"
+        Me.SlCbtn6.NoRounding = False
+        Me.SlCbtn6.Size = New System.Drawing.Size(60, 21)
+        Me.SlCbtn6.TabIndex = 19
+        Me.SlCbtn6.Text = "  Show"
+        Me.SlCbtn6.Transparent = False
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(252, 271)
+        Me.ClientSize = New System.Drawing.Size(250, 351)
         Me.Controls.Add(Me.SlcTheme1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Form1"
         Me.Text = "Form1"
+        Me.TopMost = True
         Me.TransparencyKey = System.Drawing.Color.Fuchsia
         Me.SlcTheme1.ResumeLayout(False)
+        Me.SlcGroupBox3.ResumeLayout(False)
+        Me.SlcGroupBox3.PerformLayout()
         Me.SlcGroupBox1.ResumeLayout(False)
         Me.SlcGroupBox1.PerformLayout()
         Me.SlcGroupBox2.ResumeLayout(False)
@@ -436,4 +535,11 @@ Partial Class Form1
     Friend WithEvents Label11 As Label
     Friend WithEvents SlCbtn4 As SLCbtn
     Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents tpointNum As SLCTextBox
+    Friend WithEvents baby4 As SLCCheckbox
+    Friend WithEvents SlcGroupBox3 As SLCGroupBox
+    Friend WithEvents baby8 As SLCCheckbox
+    Friend WithEvents SlCbtn5 As SLCbtn
+    Friend WithEvents SlCbtn6 As SLCbtn
 End Class
