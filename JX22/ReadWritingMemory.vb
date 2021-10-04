@@ -9,6 +9,15 @@ Module ReadWritingMemory
     Private Function ReadMemoryByte(ByVal Handle As Integer, ByVal Address As Integer, ByRef Value As Byte, ByVal Optional Size As Integer = 2, ByRef Optional Bytes As Integer = 0) As Byte
     End Function
 
+    <DllImport("kernel32", EntryPoint:="WriteProcessMemory", CharSet:=CharSet.Ansi, SetLastError:=True, ExactSpelling:=True)>
+    Private Function WriteMemoryInteger(ByVal Handle As Integer, ByVal Address As Integer, ByRef Value As Integer, ByVal Optional Size As Integer = 4, ByRef Optional Bytes As Integer = 0) As Integer
+    End Function
+
+    <DllImport("kernel32", EntryPoint:="ReadProcessMemory", CharSet:=CharSet.Ansi, SetLastError:=True, ExactSpelling:=True)>
+    Private Function ReadMemoryInteger(ByVal Handle As Integer, ByVal Address As Integer, ByRef Value As Integer, ByVal Optional Size As Integer = 4, ByRef Optional Bytes As Integer = 0) As Integer
+    End Function
+
+
     Public Function ReadByte(ByVal EXENAME As String, ByVal Address As Integer) As Byte
         Dim num2 As Byte
 
@@ -24,6 +33,28 @@ Module ReadWritingMemory
         Return num2
     End Function
 
+    Public Function ReadPointerIntegerCustom(ByVal ID As Integer, ByVal Pointer As Integer, ByVal ParamArray Offset As Integer()) As Integer
+        Dim num2 As Integer
+        If (Process.GetProcessById(ID).ToString.Length > 0) Then
+            Dim num6 As Integer
+            Dim handle As Integer = CInt(Process.GetProcessById(ID).Handle)
+            If (handle <= 0) Then
+                Return num2
+            End If
+            Dim num5 As Integer
+            For Each num5 In Offset
+                num6 = 0
+                ReadMemoryInteger(handle, Pointer, Pointer, 4, num6)
+                Pointer = (Pointer + num5)
+            Next
+            num6 = 0
+            ReadMemoryInteger(handle, Pointer, num2, 4, num6)
+        End If
+        Return num2
+    End Function
+
+
+
     Public Function ReadDouble(ByVal EXENAME As String, ByVal Address As Integer) As Double
         Dim num2 As Double
         If (Process.GetProcessesByName(EXENAME).Length > 0) Then
@@ -38,6 +69,66 @@ Module ReadWritingMemory
         Return num2
     End Function
 
+
+
+
+    Public Function ReadPointerInteger(ByVal EXENAME As String, ByVal Pointer As Integer, ByVal ParamArray Offset As Integer()) As Integer
+        Dim num2 As Integer
+        If (Process.GetProcessesByName(EXENAME).Length > 0) Then
+            Dim num6 As Integer
+            Dim handle As Integer = CInt(Process.GetProcessesByName(EXENAME)(0).Handle)
+            If (handle <= 0) Then
+                Return num2
+            End If
+            Dim num5 As Integer
+            For Each num5 In Offset
+                num6 = 0
+                ReadMemoryInteger(handle, Pointer, Pointer, 4, num6)
+                Pointer = (Pointer + num5)
+            Next
+            num6 = 0
+            ReadMemoryInteger(handle, Pointer, num2, 4, num6)
+        End If
+        Return num2
+    End Function
+
+
+
+
+    Public Sub WritePointerInteger(ByVal EXENAME As String, ByVal Pointer As Integer, ByVal Value As Integer, ByVal ParamArray Offset As Integer())
+        If (Process.GetProcessesByName(EXENAME).Length > 0) Then
+            Dim handle As Integer = CInt(Process.GetProcessesByName(EXENAME)(0).Handle)
+            If (handle > 0) Then
+                Dim num4 As Integer
+                Dim num3 As Integer
+                For Each num3 In Offset
+                    num4 = 0
+                    ReadMemoryInteger(handle, Pointer, Pointer, 4, num4)
+                    Pointer = (Pointer + num3)
+                Next
+                num4 = 0
+                WriteMemoryInteger(handle, Pointer, Value, 4, num4)
+            End If
+        End If
+    End Sub
+
+
+    Public Sub WritePointerIntegerCustom(ByVal ID As Integer, ByVal Pointer As Integer, ByVal Value As Integer, ByVal ParamArray Offset As Integer())
+        If (Process.GetProcessById(ID).ToString.Length > 0) Then
+            Dim handle As Integer = CInt(Process.GetProcessById(ID).Handle)
+            If (handle > 0) Then
+                Dim num4 As Integer
+                Dim num3 As Integer
+                For Each num3 In Offset
+                    num4 = 0
+                    ReadMemoryInteger(handle, Pointer, Pointer, 4, num4)
+                    Pointer = (Pointer + num3)
+                Next
+                num4 = 0
+                WriteMemoryInteger(handle, Pointer, Value, 4, num4)
+            End If
+        End If
+    End Sub
 
 
 
